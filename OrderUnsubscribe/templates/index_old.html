@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>移动产品订购退订展示平台</title>
+	<link type="text/css" rel="stylesheet" href="../static/css/bootstrap.min.css">  
+	<script type="text/javascript" src="../static/js/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+	<style>
+    .fakeimg {
+        width: 100%;
+        height: 200px;
+        background:#aaa;
+    }
+    #a_link{
+        text-align:right;
+    }
+    .bgp{
+        background-color: #b9b9ff;
+
+        BACKGROUND: transprant; 
+
+        WIDTH: 100%; 
+        BORDER-BOTTOM: 1px double white; 
+        HEIGHT: 100%";
+   }
+   #nav{
+        background-color: #000;
+        border: 1px;
+        text-align: center;
+        color: white;
+   }  
+   #box{
+      width: 100%;
+      height: 400px;
+   }
+  </style>
+</head>
+<body>
+<div class="jumbotron text-center bgp">
+  <h1>移动产品订购/退订情况网站</h1>
+  <p>精准推荐与实时推送</p> 
+</div>
+
+<nav class="navbar navbar-inverse" id="nav">
+  <div class="container-fluid border-success">
+    <div class="navbar-header" style="width: 10%;"><a class="navbar-brand" style="color: white" href="{% url 'realtimepush' %}" target="_blank">订购退订情况实时推送</a></div>
+    <div class="navbar-header" style="width: 10%;"><a class="navbar-brand" style="color: white" href="{% url 'echartsindex' %}"  target="_blank">订购退订情况饼状图</a></div>
+    <div class="navbar-header" style="width: 10%;"><a class="navbar-brand" style="color: white" href="{% url 'echartsbarindex' %}"  target="_blank">订购退订情况条形图</a></div>
+    <div class="navbar-header" style="width: 10%;"><a class="navbar-brand" style="color: white" id="a_link" href="{% url 'registerforms' %}"  target="_blank">注册</a></div>
+    <div class="navbar-header" style="width: 10%;"><a class="navbar-brand" style="color: white" id="a_link" href="{% url 'loginforms' %}"  target="_blank">登录</a></div>
+    <div class="navbar-header" style="width: 10%;"><a class="navbar-brand" style="color: white" id="a_link" href="{% url 'logout' %}">退出登录</a></div>
+  </div>
+  <div class="container-fluid border-success">
+    <div class="navbar-header" style="width: 10%;"><a class="navbar-brand" style="color: white" href="{% url 'echartssalesbyproductchartsindex' %}"  target="_blank">分产品销量实时走势图</a></div>
+    <div class="navbar-header" style="width: 10%;"><a class="navbar-brand" style="color: white" href="{% url 'echartsusersnumberchartsindex' %}"  target="_blank">用户量实时走势图</a></div>
+    <div class="navbar-header" style="width: 10%;"><a class="navbar-brand" style="color: white" href="{% url 'echartsflowsaleschartsindex' %}"  target="_blank">流量实时走势图</a></div>
+    <div class="navbar-header" style="width: 10%;"><a class="navbar-brand" style="color: white" href="{% url 'echartscompetitivesalesbyproductchartsindex' %}"  target="_blank">Top3产品销量实时走势图</a></div>
+    <div class="navbar-header" style="width: 10%;"><a class="navbar-brand" style="color: white" href="{% url 'echartscompetitiveusersnumberchartsindex' %}"  target="_blank">Top3用户量实时走势图</a></div>
+    <div class="navbar-header" style="width: 10%;"><a class="navbar-brand" style="color: white" href="{% url 'echartscompetitiveflowsaleschartsindex' %}"  target="_blank">Top3流量实时走势图</a></div>
+ </div>
+</nav>
+
+<div class="container" id="box">
+	<div class="jumbotron">
+		<h1>欢迎订购/退订页面！</h1>
+		<p>推荐订购移动花卡19元30G</p>
+		<!-- <p><a class="btn btn-primary btn-lg" role="button">了解更多</a></p> -->
+    {% if is_login %}
+        <p>欢迎, 用户：{{ username }}. 登录成功.</p>
+        {% if orderProduct %}
+            <p> 免流提示:{{ orderProduct }}. 可以免流量使用! </p>
+        {% else %}
+            <p>用户：{{ username }} 还未订购。推荐订购：{{ productStr }}</p>
+        {% endif %}
+    {% else %}
+        <p>请登录.</p>
+    {% endif %}
+	</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>移动产品订购情况展示Demo网站</title>
+    <link rel="stylesheet" href="../../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../static/css/sidebar-menu.css">
+
+    <script src="../../static/js/jquery.min.js"></script>
+    <script src="../../static/js/bootstrap.min.js"></script>
+
+  <script>
+    $(function(){
+        $(".main_left li").on("click",function(){
+            var address =$(this).attr("data-src");
+            $("iframe").attr("src",address);
+        });
+    });
+  </script>
+  <style>
+    .main_left{
+        width: 15%;
+        height: 100%;
+        float:left;
+        background:#c0c0c0;
+        cursor:pointer;
+    }
+    .main_right{
+        width: 85%;
+        height: 100%;
+        float: right;
+    }
+
+    .bgp{
+        background-color: #b9b9ff;
+
+        background: transprant; 
+
+        width: 100%; 
+        border-bottom: 1px double white; 
+        height: 120px;
+   }
+   th{
+        text-align: center;
+   }
+
+  </style>
+</head>
+
+<body>
+    <div class="jumbotron text-center bgp">
+        <h1>中国移动生态合作拓展项目演示</h1>
+        <p>QQ音乐局数据同步页面</p> 
+    </div>
+    <table class="table table-bordered" style="text-align: left; width: 80%;margin: auto;">
+        <thead>
+            <tr>
+                <th colspan="2">局数据同步页面展示</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>合作伙伴信息：</td>
+                <td>{{ partner_info }}</td>
+            </tr>
+            <tr>
+                <td>当前节点局数据：</td>
+                <td>{{ game_point_info }}</td>
+            </tr>
+            <tr>
+                <td>同步策略：</td>
+                <td>{{ sync_policy }}</td>
+            </tr>
+            <tr>
+                <td>上一次同步时间：</td>
+                <td>{{ last_sync_time }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+  <script type="text/javascript" src="../../static/js/jquery-3.0.0.min.js"></script>
+  <script type="text/javascript" src="../../static/js/sidebar-menu.js"></script>
+  <script>
+    $.sidebarMenu($('.sidebar-menu'))
+  </script>
+</body>
+
+</html>

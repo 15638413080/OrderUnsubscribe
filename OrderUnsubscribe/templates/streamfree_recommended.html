@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>移动产品订购展示平台</title>
+	<link type="text/css" rel="stylesheet" href="../../static/css/bootstrap.min.css">  
+	<script type="text/javascript" src="../../static/js/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript" src="../../static/js/bootstrap.min.js"></script>
+	<style>
+    .fakeimg {
+        width: 100%;
+        height: 200px;
+        background:#aaa;
+    }
+    #a_link{
+        text-align:right;
+    }
+    .bgp{
+        background-color: #b9b9ff;
+
+        BACKGROUND: transprant; 
+
+        WIDTH: 100%; 
+        BORDER-BOTTOM: 1px double white; 
+        HEIGHT: 100%";
+   }
+   #nav{
+        background-color: #000;
+        border: 1px;
+        text-align: center;
+        color: white;
+   }  
+   #box{
+      width: 100%;
+      height: 400px;
+   }
+  </style>
+</head>
+<body>
+<div class="jumbotron text-center bgp">
+    <h1>中国移动生态合作拓展项目演示</h1>
+    <p>移动产品订购情况展示Demo网站</p> 
+</div>
+<nav class="navbar navbar-inverse" id="nav">
+    <div class="container-fluid border-success">
+      <div class="navbar-header" style="width: 10%;"><a class="navbar-brand" style="color: white" id="a_link" href="{% url 'registerforms' %}"  target="_blank">注册</a></div>
+      <div class="navbar-header" style="width: 10%;"><a class="navbar-brand" style="color: white" id="a_link" href="{% url 'loginforms' %}"  target="_blank">登录</a></div>
+      <div class="navbar-header" style="width: 10%;"><a class="navbar-brand" style="color: white" id="a_link" href="{% url 'logout' %}">退出登录</a></div>
+    </div>
+</nav>
+<div class="container" id="box">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th style="text-align: center;">免流提示/精准推荐功能展示</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>功能说明：1. 如果登录用户已经订购移动公司产品会提示订购了XXX产品，免流放心使用；2. 如果登录用户未订购移动公司产品会提示推荐订购Top5销量的产品.</td>
+            </tr>
+            <!-- <tr>
+                <td>演示1：用户：5B012E6D4CF86E78964C9350192E77E4，密码：123456 免流提示。</td>
+            </tr>
+            <tr>
+                <td>演示2：用户：57EE24FEC6B03FF998D1D8218B4CF8C7，密码：123456 精准推荐Top5产品。</td>
+            </tr> -->
+        </tbody>
+    </table>
+	<div class="jumbotron">
+        {% if is_login %}
+            <p>欢迎, 用户：{{ username }}. 登录成功.</p>
+            {% if orderProduct %}
+                <p style="color: green; background-color: silver; width: 100%; height: 120px; text-align: left;"> 免流提示:{{ orderProduct }}. </p>
+            {% else %}
+                <p style="color: yellow; background-color: black; width: 100%; height: 120px; text-align: left;">用户：{{ username }} 还未订购。推荐订购：{{ productStr }}</p>
+            {% endif %}
+        {% else %}
+            <p style="color: red;">用户还未登录，请登录.</p>
+        {% endif %}
+	</div>
+</div>
+
+</body>
+</html>

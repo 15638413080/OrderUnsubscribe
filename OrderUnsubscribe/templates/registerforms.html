@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<h3>User注册</h3>
+<form action="registerdata/" method="post">
+    {% csrf_token %}
+    {{ userRegisterForm.as_p }}
+    <input type="submit", value="注册">
+</form>
+<div><a href="{% url 'loginforms' %}">登录</a></div>
+</body>
+</html>

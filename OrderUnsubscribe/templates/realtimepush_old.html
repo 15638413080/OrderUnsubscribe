@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>订购退订实时推送</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+	<script src="/static/js/jquery.min.js"></script>
+	<script src="/static/js/bootstrap.min.js"></script>
+    <style>
+        .message {
+            height: 400px;
+            border: 1px solid #dddddd;
+        }
+        h{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th style="text-align: center;">实时推送XX点XX分某用户订购了XX产品功能展示</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>功能说明：可用于向合作渠道商伙伴实时同步产品订购情况以用于免流、推荐、调度等功能实现。</td>
+            </tr>
+            <tr>
+                <td>演示：点击"关闭"可暂停，点击"实时推送"可继续推送。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <div  class="message" id="message">
+                
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <!-- <input type="text" placeholder="请输入" id="txt">
+        <input type="button" value="发送" onclick="sendMessage()"> -->
+        <a class="btn btn-primary btn-lg" role="button" href="{% url 'realtimepush' %}">实时推送</a>
+        <a class="btn btn-primary btn-lg" role="button" onclick="closeConn()">关闭</a>
+        <!-- <input type="button" value="关闭连接" onclick="closeConn()"> -->
+    </div>
+
+<script>
+ 
+    socket = new WebSocket("ws://127.0.0.1:8000/mes/");
+ 
+    // 创建好连接之后自动触发（ 服务端执行self.accept() )
+    socket.onopen = function (event) {
+        let tag = document.createElement("div");
+        tag.innerText = "[连接成功]";
+        document.getElementById("message").appendChild(tag);
+    }
+ 
+    // 当websocket接收到服务端发来的消息时，自动会触发这个函数。
+    socket.onmessage = function (event) {
+        let data = JSON.parse(event.data)
+        let tag = document.createElement("div");
+        // tag.innerText = event.data;
+        // document.write(event.data);
+        //推送的消息alert形式弹出
+        commonUtil.message(data["message"])
+        // document.getElementById("message").appendChild(tag);
+    }
+ 
+    // 服务端主动断开连接时，这个方法也被触发。
+    socket.onclose = function (event) {
+        let tag = document.createElement("div");
+        tag.innerText = "[断开连接]";
+        document.getElementById("message").appendChild(tag);
+    }
+ 
+    function sendMessage() {
+        let tag = document.getElementById("txt");
+        socket.send(tag.value);
+    }
+ 
+    function closeConn() {
+        socket.close(); // 向服务端发送断开连接的请求
+    }
+
+    var commonUtil = {
+        /**
+         * 弹出消息框
+         * @param msg 消息内容
+         * @param type 消息框类型（参考bootstrap的alert）
+         */
+        alert: function(msg, type){
+            if(typeof(type) =="undefined") { // 未传入type则默认为success类型的消息框
+            type = "success";
+            }
+            // 创建bootstrap的alert元素
+            var divElement = $("<div></div>").addClass('alert').addClass('alert-'+type).addClass('alert-dismissible').addClass('col-md-4').addClass('col-md-offset-4');
+            divElement.css({ // 消息框的定位样式
+            "position": "absolute",
+            "top": "180px",
+            "left": "300px"
+            });
+            divElement.text(msg); // 设置消息框的内容
+            // 消息框添加可以关闭按钮
+            var closeBtn = $('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true"></span></button>');
+            $(divElement).append(closeBtn);
+            // 消息框放入到页面中
+            $('body').append(divElement);
+            return divElement;
+        },
+        
+        /**
+         * 短暂显示后上浮消失的消息框
+         * @param msg 消息内容
+         * @param type 消息框类型
+         */
+        message: function(msg, type) {
+            var divElement = commonUtil.alert(msg, type); // 生成Alert消息框
+            var isIn = false; // 鼠标是否在消息框中
+            
+            divElement.on({ // 在setTimeout执行之前先判定鼠标是否在消息框中
+                mouseover : function(){isIn = true;},
+                mouseout : function(){isIn = false;}
+            });
+
+            // 短暂延时后上浮消失
+            setTimeout(function() {
+            var IntervalMS = 20; // 每次上浮的间隔毫秒
+            var floatSpace = 180; // 上浮的空间(px)
+            var nowTop = divElement.offset().top; // 获取元素当前的top值
+            var stopTop = nowTop - floatSpace;  // 上浮停止时的top值
+            divElement.fadeOut(IntervalMS * floatSpace); // 设置元素淡出
+            
+            var upFloat = setInterval(function(){ // 开始上浮
+                if (nowTop >= stopTop) { // 判断当前消息框top是否还在可上升的范围内
+                divElement.css({"top": nowTop--}); // 消息框的top上升1px
+                } else {
+                clearInterval(upFloat); // 关闭上浮
+                divElement.remove();  // 移除元素
+                }
+            }, IntervalMS);
+
+            if (isIn) { // 如果鼠标在setTimeout之前已经放在的消息框中，则停止上浮
+                clearInterval(upFloat);
+                divElement.stop();
+            }
+            
+            divElement.hover(function() { // 鼠标悬浮时停止上浮和淡出效果，过后恢复
+                clearInterval(upFloat);
+                divElement.stop();
+            },function() {
+                divElement.fadeOut(IntervalMS * (nowTop - stopTop)); // 这里设置元素淡出的时间应该为：间隔毫秒*剩余可以上浮空间
+                upFloat = setInterval(function(){ // 继续上浮
+                if (nowTop >= stopTop) {
+                    divElement.css({"top": nowTop--});
+                } else {
+                    clearInterval(upFloat); // 关闭上浮
+                    divElement.remove();  // 移除元素
+                }
+                }, IntervalMS);
+            });
+            }, 1500);
+        }
+}
+
+</script>
+ 
+</body>
+</html>

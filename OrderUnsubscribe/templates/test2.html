@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ch">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>项目名称</title>
+ 
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Test3/common.css" rel="stylesheet" />
+    <link href="~/Content/Test3/flat-ui.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="wrap">
+        <div class="leftMeun" id="leftMeun">
+            <div id="logoDiv">
+                <p id="logoP">
+                    <span>项目名称</span>
+                </p>
+            </div>
+ 
+            <div class="meun-title">账号管理</div>
+            <div class="meun-item meun-item-active" href="#user" aria-controls="user" role="tab" data-toggle="tab">用户管理</div>
+            <div class="meun-item" href="#chan" aria-controls="chan" role="tab" data-toggle="tab">修改密码</div>
+ 
+        </div>
+ 
+        <div id="rightContent">
+            <a class="toggle-btn" id="nimei">
+                <i class="glyphicon glyphicon-align-justify"></i>
+            </a>
+            <div class="tab-content">
+ 
+                <div role="tabpanel" class="tab-pane active" id="user">
+                    <div class="check-div"></div>
+ 
+                    <div class="data-div">
+                        <div class="row tableHeader">
+                            <div class="col-xs-2 ">
+                                用户名
+                            </div>
+                            <div class="col-xs-2">
+                                地区
+                            </div>
+                            <div class="col-xs-2">
+                                真实姓名
+                            </div>
+                            <div class="col-xs-2">
+                                电话
+                            </div>
+                            <div class="col-xs-2">
+                                状态
+                            </div>
+                            <div class="col-xs-2">
+                                操作
+                            </div>
+                        </div>
+                        <div class="tablebody">
+                            <div class="row">
+                                <div class="col-xs-2 ">
+                                    wwz
+                                </div>
+                                <div class="col-xs-2">
+                                    地区
+                                </div>
+                                <div class="col-xs-2">
+                                    哈哈
+                                </div>
+                                <div class="col-xs-2">
+                                    13700000000
+                                </div>
+                                <div class="col-xs-2">
+                                    状态
+                                </div>
+                                <div class="col-xs-2">
+                                    <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#reviseUser">修改</button>
+                                    <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser">删除</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+ 
+                </div>
+  
+               <div role="tabpanel" class="tab-pane" id="chan">
+                        <div class="check-div">
+  
+                        </div>
+                        <div style="padding: 50px 0;margin-top: 50px;background-color: #fff; text-align: right;width: 420px;margin: 50px auto;">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="sKnot" class="col-xs-4 control-label">原密码：</label>
+                                    <div class="col-xs-5">
+                                        <input type="" class="form-control input-sm duiqi" id="sKnot" placeholder="" style="margin-top: 7px;">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="sKnot" class="col-xs-4 control-label">新密码：</label>
+                                    <div class="col-xs-5">
+                                        <input type="" class="form-control input-sm duiqi" id="sKnot" placeholder="" style="margin-top: 7px;">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="sKnot" class="col-xs-4 control-label">重复密码：</label>
+                                    <div class="col-xs-5">
+                                        <input type="" class="form-control input-sm duiqi" id="sKnot" placeholder="" style="margin-top: 7px;">
+                                    </div>
+                                </div>
+                                <div class="form-group text-right">
+                                    <div class="col-xs-offset-4 col-xs-5" style="margin-left: 169px;">
+                                        <button type="reset" class="btn btn-xs btn-white">取 消</button>
+                                        <button type="submit" class="btn btn-xs btn-green">保存</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+ 
+            </div>
+        </div>
+    </div>
+ 
+    <script src="../../jquery-3.3.1.js"></script>
+    <script src="../../bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            $(".meun-item").click(function () {
+                $(".meun-item").removeClass("meun-item-active");
+                $(this).addClass("meun-item-active");
+            });
+ 
+            $(".toggle-btn").click(function () {
+                $("#leftMeun").toggleClass("show");
+                $("#rightContent").toggleClass("pd0px");
+            })
+        })
+    </script>
+</body>
+</html>

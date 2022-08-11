@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+    <title>移动产品订购情况展示Demo网站</title>
+    <link rel="stylesheet" href="../../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../static/css/sidebar-menu.css">
+
+    <script src="../../static/js/jquery.min.js"></script>
+    <script src="../../static/js/bootstrap.min.js"></script>
+
+  <script>
+    $(function(){
+        $(".main_left li").on("click",function(){
+            var address =$(this).attr("data-src");
+            $("iframe").attr("src",address);
+        });
+    });
+  </script>
+  <style>
+    .main_left{
+        width: 15%;
+        height: 100%;
+        float:left;
+        background:#c0c0c0;
+        cursor:pointer;
+    }
+    .main_right{
+        width: 85%;
+        height: 100%;
+        float: right;
+    }
+
+    .bgp{
+        background-color: #b9b9ff;
+
+        background: transprant; 
+
+        width: 100%; 
+        border-bottom: 1px double white; 
+        height: 120px;
+   }
+   th{
+        text-align: center;
+   }
+
+  </style>
+</head>
+
+<body>
+  <div class="jumbotron text-center bgp">
+    <h1>中国移动生态合作拓展项目演示</h1>
+    <p>QQ音乐订购移动免流产品同步</p> 
+  </div>
+  <section class="main_left" style="width: 200px">
+    <ul class="sidebar-menu" style="height: 510px;">
+      <li class="sidebar-header">侧导航栏</li>
+      <li>
+        <a href="#">
+          <i class="fa fa-dashboard"></i> <span>实时功能展示</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="sidebar-submenu">
+          <li><a href="{% url 'realtimepush' %}" target="_blank"><i class="fa fa-circle-o"></i>订购同步情况</a></li>
+          <li><a href="{% url 'streamfree_recommended' %}" target="_blank"><i class="fa fa-circle-o"></i>免流/推荐展示</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">
+          <i class="fa fa-pie-chart"></i>
+          <span>运营分析功能展示</span>
+          <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="sidebar-submenu">
+          <li><a href="{% url 'echartssalesbyproductchartsindex' %}"  target="_blank"><i class="fa fa-circle-o"></i>分产品实时动态</a></li>
+          <li><a href="{% url 'echartsusersnumberchartsindex' %}"  target="_blank"><i class="fa fa-circle-o"></i>用户量实时动态</a></li>
+          <li><a href="{% url 'echartsflowsaleschartsindex' %}"  target="_blank"><i class="fa fa-circle-o"></i>流量实时动态</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">
+          <i class="fa fa-pie-chart"></i>
+          <span>竞品分析功能展示</span>
+          <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="sidebar-submenu">
+          <!-- <li><a href="{% url 'echartscompetitivesalesbyproductchartsindex' %}"  target="_blank"><i class="fa fa-circle-o"></i>Top3产品实时动态</a></li> -->
+          <li><a href="{% url 'echartscompetitiveusersnumberchartsindex' %}"  target="_blank"><i class="fa fa-circle-o"></i>Top3用户量实时动态</a></li>
+          <li><a href="{% url 'echartscompetitiveflowsaleschartsindex' %}"  target="_blank"><i class="fa fa-circle-o"></i>Top3流量实时动态</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">
+          <i class="fa fa-table"></i> <span>局数据同步</span>
+          <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="sidebar-submenu">
+          <li><a href="{% url 'bureau_data' %}" target="_blank"><i class="fa fa-circle-o"></i>局数据同步页面展示</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">
+          <i class="fa fa-edit"></i> <span>用户管理</span>
+          <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="sidebar-submenu">
+          <li><a href="{% url 'registerforms' %}"  target="_blank"><i class="fa fa-circle-o"></i>用户注册</a></li>
+          <li><a href="{% url 'loginforms' %}"  target="_blank"><i class="fa fa-circle-o"></i>用户登录</a></li>
+          <li><a href="{% url 'logout' %}"><i class="fa fa-circle-o"></i>退出登录</a></li>
+        </ul>
+      </li>
+    </ul>
+    </section>
+    <!-- 右侧内容 -->
+    <div class="main_right">
+        <img src="../../static/images/image.png" width="100%" height="500px"> 
+    </div>
+
+
+  <script type="text/javascript" src="../../static/js/jquery-3.0.0.min.js"></script>
+  <script type="text/javascript" src="../../static/js/sidebar-menu.js"></script>
+  <script>
+    $.sidebarMenu($('.sidebar-menu'))
+  </script>
+</body>
+
+</html>
